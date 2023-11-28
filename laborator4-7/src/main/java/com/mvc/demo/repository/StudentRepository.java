@@ -1,5 +1,7 @@
 package com.mvc.demo.repository;
 
+import com.mvc.demo.exception.StudentAlreadyExistsException;
+import com.mvc.demo.exception.StudentNotFoundException;
 import com.mvc.demo.model.Student;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
@@ -25,6 +27,12 @@ public class StudentRepository {
     }
 
     public void add(Student student){
+        if(students.stream()
+                .filter(elem -> elem.getFirstName().equals(student.getFirstName())
+                && elem.getLastName().equals(student.getLastName())).toList().size() > 0){
+            throw new StudentAlreadyExistsException("Student with firstName: " +
+                     student.getFirstName() + " and lastName: "+ student.getLastName() +
+                     " already exists");}
         students.add(student);
     }
 
@@ -97,7 +105,7 @@ public class StudentRepository {
     public Student getById(Integer id){
         List<Student> student = students.stream().filter(elem -> elem.getId() == id).collect(Collectors.toList());
         if(student.size() == 0){
-            throw new RuntimeException("No student with id: "+ id);
+            throw new StudentNotFoundException("No student with id: "+ id);
         }
         return student.get(0);
     }

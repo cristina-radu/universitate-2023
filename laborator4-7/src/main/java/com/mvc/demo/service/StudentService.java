@@ -1,7 +1,9 @@
 package com.mvc.demo.service;
 
+import com.mvc.demo.mapper.StudentMapper;
 import com.mvc.demo.model.Student;
 import com.mvc.demo.repository.StudentRepository;
+import com.mvc.demo.request.StudentRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,17 +11,19 @@ import java.util.List;
 @Service
 public class StudentService {
     private StudentRepository studentRepository;
+    private StudentMapper studentMapper;
 
-    public StudentService(StudentRepository studentRepository) {
+    public StudentService(StudentRepository studentRepository, StudentMapper studentMapper) {
         this.studentRepository = studentRepository;
+        this.studentMapper = studentMapper;
     }
 
     public List<Student> getAll(){
         return studentRepository.getAll();
     }
 
-    public void add(Student student){
-        studentRepository.add(student);
+    public void add(StudentRequest studentRequest){
+        studentRepository.add(studentMapper.map(studentRequest));
     }
 
     public void updateWithPut(Integer id, Student student){

@@ -1,7 +1,9 @@
 package com.mvc.demo.controller;
 
 import com.mvc.demo.model.Student;
+import com.mvc.demo.request.StudentRequest;
 import com.mvc.demo.service.StudentService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,14 +26,8 @@ public class RestStudentController {
     }
 
     @GetMapping("/id/{id}")
-    public ResponseEntity<Student> getById(@PathVariable Integer id) {
-        Student student=null;
-        try {
-           studentService.getById(id);
-        } catch (RuntimeException ex){
-            new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(student, HttpStatus.OK);
+    public Student getById(@PathVariable Integer id) {
+       return studentService.getById(id);
     }
 
     @GetMapping("/with-custom-header/id/{id}")
@@ -48,8 +44,8 @@ public class RestStudentController {
     }
 
     @PostMapping
-    public void add(@RequestBody Student student) {
-        studentService.add(student);
+    public void add(@RequestBody @Valid StudentRequest studentRequest) {
+        studentService.add(studentRequest);
     }
 
     @PutMapping("/{id}")
