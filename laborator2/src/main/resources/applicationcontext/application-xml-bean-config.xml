@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--    <bean id="studentService" class="com.project.demo.xml_config.service.StudentService" />-->
+
+<!--    <bean id="studentService" primary="true" class="com.project.demo.xml_config.service.StudentService" />
+    <bean id="userServiceSecondary" class="com.project.demo.xml_config.service.StudentService" />-->
+
+    <bean id="studentService" class="com.project.demo.xml_config.service.StudentService">
+        <constructor-arg name="studentRepository" ref="studentRepository" />
+    </bean>
+    <bean id="studentRepository" class="com.project.demo.xml_config.repository.StudentRepository" />
+
+
+</beans>
