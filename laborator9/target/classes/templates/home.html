@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Listing student from data object: </h1>
+<table>
+    <tr>
+        <th> First Name </th>
+        <th> Last Name </th>
+        <th> Age </th>
+        <th> Delete Student</th>
+    </tr>
+    <tr th:each="student : ${data}">
+        <td th:text="${student.getFirstName()}"></td>
+        <td th:text="${student.getLastName()}"></td>
+        <td th:text="${student.getAge()}"></td>
+        <td><a th:href="@{/delete/{firstName}(firstName=${student.getFirstName()})}">Delete student</a></td>
+    </tr>
+</table><br><br><br>
+
+<form action="#" th:action="@{/student/add}" th:object="${student}" method="post">
+    <label for="firstName">First Name : </label><br>
+    <input type="text" id="firstName" th:field="*{firstName}"><br>
+
+    <label for="lastName">Last Name : </label><br>
+    <input type="text" id="lastName" th:field="*{lastName}"><br>
+
+    <label for="age">Age: </label><br>
+    <input type="text" id="age" th:field="*{age}"><br><br>
+
+    <input type="submit" value="Add student">
+</form>
+</body>
+</html>
