@@ -4,7 +4,7 @@ import com.mvc.demo.exception.StudentNotFoundException;
 import com.mvc.demo.mapper.StudentMapper;
 import com.mvc.demo.model.Student;
 import com.mvc.demo.repository.StudentRepository;
-import com.mvc.demo.request.StudentRequest;
+import com.mvc.demo.dto.StudentDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,12 +20,14 @@ public class StudentService {
         this.studentMapper = studentMapper;
     }
 
-    public List<Student> getAll(){
-        return studentRepository.findAll();
+    public List<StudentDto> getAll(){
+        List<Student> allStudents = studentRepository.findAll();
+        return studentMapper.mapListToStudentDto(allStudents);
     }
 
-    public void save(StudentRequest studentRequest){
-        studentRepository.save(studentMapper.map(studentRequest));
+    public StudentDto save(StudentDto studentDto){
+        Student dbStudent = studentRepository.save(studentMapper.map(studentDto));
+        return studentMapper.map(dbStudent);
     }
 
  /*   public void updateWithPut(Integer id, Student student){
@@ -48,7 +50,7 @@ public class StudentService {
         return studentRepository.getStudentsByAgeAndScore(age, score);
     }*/
 
-    public Student getById(Integer id){
+    public StudentDto getById(Integer id){
         Optional<Student> optionalStudent = studentRepository.findById(id);
   /*      return optionalStudent
                 .orElseThrow(new StudentNotFoundException("Student with id: "+ id + " is not in the db."));
@@ -56,7 +58,7 @@ public class StudentService {
         if(!optionalStudent.isPresent()){
             throw new StudentNotFoundException("Student with id: "+ id + " is not in the db.");
         }
-        return optionalStudent.get();
+        return studentMapper.map(optionalStudent.get());
     }
 
 }

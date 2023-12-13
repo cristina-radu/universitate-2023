@@ -1,12 +1,9 @@
 package com.mvc.demo.controller;
 
 import com.mvc.demo.model.Student;
-import com.mvc.demo.request.StudentRequest;
+import com.mvc.demo.dto.StudentDto;
 import com.mvc.demo.service.StudentService;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,12 +18,12 @@ public class RestStudentController {
     }
 
     @GetMapping
-    public List<Student> getAll() {
+    public List<StudentDto> getAll() {
         return studentService.getAll();
     }
 
     @GetMapping("/id/{id}")
-    public Student getById(@PathVariable Integer id) {
+    public StudentDto getById(@PathVariable Integer id) {
        return studentService.getById(id);
     }
 
@@ -44,8 +41,8 @@ public class RestStudentController {
     }
 */
     @PostMapping
-    public void save(@RequestBody @Valid StudentRequest studentRequest) {
-        studentService.save(studentRequest);
+    public StudentDto save(@RequestBody @Valid StudentDto studentDto) {
+       return studentService.save(studentDto);
     }
 /*
     @PutMapping("/{id}")

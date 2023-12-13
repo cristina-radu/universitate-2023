@@ -2,6 +2,8 @@ package com.mvc.demo.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Table(name = "student")
 @Entity
 public class Student {
@@ -17,10 +19,17 @@ public class Student {
     @Column(name = "score")
     private Integer score;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "student_course",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
+    private List<Course> courses;
 
     public Student() {}
 
@@ -70,5 +79,21 @@ public class Student {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
     }
 }

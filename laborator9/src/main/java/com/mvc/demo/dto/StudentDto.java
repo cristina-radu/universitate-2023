@@ -1,8 +1,11 @@
-package com.mvc.demo.request;
+package com.mvc.demo.dto;
 
+import com.mvc.demo.model.Address;
 import jakarta.validation.constraints.*;
 
-public class StudentRequest {
+import java.util.List;
+
+public class StudentDto {
     private Integer id;
     @NotNull(message = "First name is mandatory.")
     @NotBlank(message = "First Name must have a value.")
@@ -18,6 +21,10 @@ public class StudentRequest {
     @Min(value = 1, message = "Score can be min 1.")
     @Max(value = 10, message = "Score can be max 10.")
     private Integer score;
+
+    private AddressDto address;
+
+    private List<CourseDto> courses;
 
     public String getFirstName() {
         return firstName;
@@ -57,5 +64,21 @@ public class StudentRequest {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public AddressDto getAddress() {
+        return address;
+    }
+
+    public void setAddress(AddressDto address) {
+        this.address = address;
+    }
+
+    public List<CourseDto> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<CourseDto> courses) {
+        this.courses = courses;
     }
 }

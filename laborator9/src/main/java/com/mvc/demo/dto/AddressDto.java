@@ -1,22 +1,10 @@
-package com.mvc.demo.model;
+package com.mvc.demo.dto;
 
-import jakarta.persistence.*;
-
-@Table
-@Entity
-public class Address {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class AddressDto {
     private Integer id;
-    @Column
     private String street;
-    @Column
     private Integer streetNo;
-    @Column
     private String building;
-
-    @OneToOne(mappedBy = "address")
-    private Student student;
 
     public Integer getId() {
         return id;
@@ -48,13 +36,5 @@ public class Address {
 
     public void setBuilding(String building) {
         this.building = building;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
     }
 }
