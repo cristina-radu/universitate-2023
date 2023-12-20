@@ -1,16 +1,16 @@
 package com.mvc.demo.dto;
 
 public class AddressDto {
-    private Integer id;
+    private Long id;
     private String street;
     private Integer streetNo;
     private String building;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

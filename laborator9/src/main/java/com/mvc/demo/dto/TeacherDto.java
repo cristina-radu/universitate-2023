@@ -1,23 +1,14 @@
-package com.mvc.demo.model;
+package com.mvc.demo.dto;
 
-import jakarta.persistence.*;
 
 import java.util.List;
 
-@Entity
-@Table(name = "teacher")
-public class Teacher {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class TeacherDto {
     private Long id;
-    @Column(name = "first_name")
     private String firstName;
-    @Column(name = "last_name")
     private String lastName;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "teacher_id")
-    private List<Course> courses;
+    private List<CourseDto> courses;
 
     public Long getId() {
         return id;
@@ -43,11 +34,11 @@ public class Teacher {
         this.lastName = lastName;
     }
 
-    public List<Course> getCourses() {
+    public List<CourseDto> getCourses() {
         return courses;
     }
 
-    public void setCourses(List<Course> courses) {
+    public void setCourses(List<CourseDto> courses) {
         this.courses = courses;
     }
 }

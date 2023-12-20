@@ -1,12 +1,14 @@
 package com.mvc.demo.dto;
 
-import com.mvc.demo.model.Address;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
 public class StudentDto {
-    private Integer id;
+    private Long id;
     @NotNull(message = "First name is mandatory.")
     @NotBlank(message = "First Name must have a value.")
     private String firstName;
@@ -58,11 +60,11 @@ public class StudentDto {
         this.score = score;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

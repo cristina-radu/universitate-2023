@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Embeddable
 public class StudentCourseCatalogKey implements Serializable {
     @Column(name = "student_id")
-    private Integer studentId;
+    private Long studentId;
     @Column(name = "course_id")
-    private Integer courseId;
+    private Long courseId;
 }
