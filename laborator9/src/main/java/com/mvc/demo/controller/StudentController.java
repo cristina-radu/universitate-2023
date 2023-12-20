@@ -1,6 +1,5 @@
 package com.mvc.demo.controller;
 
-import com.mvc.demo.model.Student;
 import com.mvc.demo.dto.StudentDto;
 import com.mvc.demo.service.StudentService;
 import jakarta.validation.Valid;
@@ -8,12 +7,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("rest-student")
+@RequestMapping("student")
 @RestController
-public class RestStudentController {
+public class StudentController {
     private StudentService studentService;
 
-    public RestStudentController(StudentService studentService){
+    public StudentController(StudentService studentService){
         this.studentService = studentService;
     }
 
@@ -23,27 +22,35 @@ public class RestStudentController {
     }
 
     @GetMapping("/id/{id}")
-    public StudentDto getById(@PathVariable Integer id) {
+    public StudentDto getById(@PathVariable Long id) {
        return studentService.getById(id);
     }
 
- /*   @GetMapping("/with-custom-header/id/{id}")
-    public ResponseEntity<Student> getWithCustomHeader(@PathVariable Integer id) {
-        Student student=null;
-        try {
-            studentService.getById(id);
-        } catch (RuntimeException ex){
-            new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("my_header", "my test header");
-        return new ResponseEntity<>(student, headers, HttpStatus.OK);
-    }
-*/
     @PostMapping
     public StudentDto save(@RequestBody @Valid StudentDto studentDto) {
        return studentService.save(studentDto);
     }
+
+    @GetMapping("/age/{age}")
+    public List<StudentDto> getAllStudentsByAgeOrGreaterThan(@PathVariable Integer age) {
+        return studentService.getStudentsByAgeOrGreaterThan(age);
+    }
+
+    @GetMapping("/score/{score}")
+    public List<StudentDto> getAllStudentsByScore(@PathVariable Integer score) {
+        return studentService.getStudentsWithScore(score);
+    }
+
+    @GetMapping("/address/street/{streetName}")
+    public List<StudentDto> getAllStudentsByAddressStreet(@PathVariable String streetName) {
+        return studentService.getStudentsWithAddressStreetName(streetName);
+    }
+
+    @GetMapping("/age/{age}/score/{score}")
+    public List<StudentDto> findStudentsWithAgeOrWithScore(@PathVariable Integer age, @PathVariable Integer score) {
+        return studentService.getStudentsWithAgeOrWithScore(age, score);
+    }
+
 /*
     @PutMapping("/{id}")
     public void updateWithPut(@PathVariable Integer id, @RequestBody Student student) {
@@ -55,10 +62,7 @@ public class RestStudentController {
         studentService.updateWithPatch(id, student);
     }
 
-    @GetMapping("/age/{age}")
-    public List<Student> getAllStudentsByAge(@PathVariable Integer age) {
-        return studentService.getStudentsByAge(age);
-    }
+
 
      @GetMapping("/age")
      public List<Student> getAllStudentsByAgeParam(@RequestParam Integer age) {
@@ -76,7 +80,7 @@ public class RestStudentController {
     }
 */
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) {
+    public void delete(@PathVariable Long id) {
         studentService.delete(id);
     }
 }

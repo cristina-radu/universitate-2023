@@ -26,6 +26,9 @@ public class StudentMapper {
     }
 
     public Student map(StudentDto studentDto){
+        if(studentDto == null){
+            return null;
+        }
         Student student = new Student();
         student.setId(studentDto.getId());
         student.setFirstName(studentDto.getFirstName());
@@ -38,6 +41,9 @@ public class StudentMapper {
     }
 
     public StudentDto map(Student student){
+        if(student == null){
+            return null;
+        }
         StudentDto studentDto = new StudentDto();
         studentDto.setId(student.getId());
         studentDto.setFirstName(student.getFirstName());

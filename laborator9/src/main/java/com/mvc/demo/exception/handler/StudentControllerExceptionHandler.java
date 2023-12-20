@@ -1,7 +1,7 @@
 package com.mvc.demo.exception.handler;
 
-import com.mvc.demo.exception.StudentAlreadyExistsException;
-import com.mvc.demo.exception.StudentNotFoundException;
+import com.mvc.demo.exception.EntityAlreadyExistsException;
+import com.mvc.demo.exception.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class StudentControllerExceptionHandler {
 
     @ExceptionHandler({MethodArgumentNotValidException.class,
-            StudentAlreadyExistsException.class})
+            EntityAlreadyExistsException.class})
     public ResponseEntity<String> methodArgumentExceptionHandling(
             Exception ex){
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler({StudentNotFoundException.class})
-    public ResponseEntity<String> studentNotFound(StudentNotFoundException ex){
+    @ExceptionHandler({EntityNotFoundException.class})
+    public ResponseEntity<String> studentNotFound(EntityNotFoundException ex){
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
