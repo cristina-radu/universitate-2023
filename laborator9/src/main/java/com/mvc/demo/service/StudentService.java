@@ -66,9 +66,6 @@ public class StudentService {
 
     public StudentDto getById(Long id){
         Optional<Student> optionalStudent = studentRepository.findById(id);
-  /*      return optionalStudent
-                .orElseThrow(new StudentNotFoundException("Student with id: "+ id + " is not in the db."));
-      */
         if(!optionalStudent.isPresent()){
             throw new EntityNotFoundException("Student with id: "+ id + " is not in the db.");
         }

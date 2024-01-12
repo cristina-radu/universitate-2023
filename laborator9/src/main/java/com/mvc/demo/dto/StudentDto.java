@@ -5,9 +5,10 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class StudentDto {
+public class StudentDto implements Serializable {
     private Long id;
     @NotNull(message = "First name is mandatory.")
     @NotBlank(message = "First Name must have a value.")
